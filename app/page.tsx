@@ -37,3 +37,12 @@ export default function IndexPage() {
     </section>
   )
 }
+
+{/* <Link
+target="_blank"
+rel="noreferrer"
+href={siteConfig.links.github}
+className={buttonVariants({ variant: "outline" })}
+>
+GitHub
+</Link> */}

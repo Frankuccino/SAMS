@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
   icons: {
-    icon: "/favicon.ico",
+    icon: "https://www.spud.edu.ph/assets/logo/spud_logo.png",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
@@ -33,19 +33,25 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
+        {/* <head /> */}
         <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
+          className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+
+
             <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <div className="flex-1">{children}</div>
+
+              {/* <SiteHeader /> */}
+
+
+              <div className="flex-1">
+                {children}
+                </div>
+
             </div>
-            <TailwindIndicator />
+
+
           </ThemeProvider>
         </body>
       </html>
