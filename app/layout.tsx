@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+import AuthProvider from "@/components/AuthProvider"
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +32,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <>
+    <AuthProvider>
       <html lang="en" suppressHydrationWarning>
         {/* <head /> */}
         <body
@@ -45,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               {/* <SiteHeader /> */}
 
 
-              <div className="flex-1">
+              <div className="flex-1 ">
                 {children}
                 </div>
 
@@ -55,6 +56,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </ThemeProvider>
         </body>
       </html>
-    </>
+    </AuthProvider>
   )
 }
