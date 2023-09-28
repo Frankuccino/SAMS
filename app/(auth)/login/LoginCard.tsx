@@ -24,8 +24,6 @@ export default function LoginCard() {
     const { register, handleSubmit } = useForm<LoginFormValues>();
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-    console.log(data);
-    
     try {
       const res = await signIn('credentials', {
         email: data.email,

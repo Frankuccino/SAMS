@@ -19,10 +19,10 @@ export const options: NextAuthOptions = {
                 await connectDB();
 
                 const user = await User.findOne({ email });
-                if (!user) throw Error ("email/password mismatch!");
+                if (!user) throw Error ("email or password mismatch!");
 
                 const passwordMatch = await user.comparePassword(password);
-                if (!passwordMatch) throw Error("email/password mismatch!");
+                if (!passwordMatch) throw Error("email or password mismatch!");
 
                 return {
                     email: user.email,
@@ -41,13 +41,21 @@ export const options: NextAuthOptions = {
             if (params.user?.role) {
                 params.token.role = params.user.role;
                 params.token.id = params.user.id;
+                params.token.firstName = params.user.firstName;
+                params.token.lastName = params.user.lastName;
+                params.token.username = params.user.username;
+                // console.log('JWT Token:', params.token);
             }
             return params.token
         },
         session({session, token}) {
             if (session.user) {
                 (session.user as { id: string }).id = token.id as string;
-                (session.user as { role: string }).role = token.role  as string;
+                (session.user as { role: string }).role = token.role as string;
+                (session.user as { firstName: string }).firstName = token.firstName as string;
+                (session.user as { lastName: string }).lastName = token.lastName as string;
+                (session.user as { username: string }).username = token.username as string;
+                // console.log('Session User:', session.user);
             }
             return session
         },

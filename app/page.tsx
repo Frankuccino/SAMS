@@ -7,8 +7,8 @@ import { SiteHeader } from "@/components/site-header"
 export default function IndexPage() {
   return (
     <section className="">
-      <SiteHeader />
-
+      {/* <SiteHeader /> */}
+    <div>This is the home page</div>
     </section>
   )
 }

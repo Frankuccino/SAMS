@@ -43,7 +43,7 @@ const userSchema = new Schema<UserDocument, {}, Methods>({
     },
     role: {
         type: String,
-        enum: ["admin", "staff", "user"],
+        enum: ["admin", "manager", "staff", "user"],
         default: "user"
     },
     request: [

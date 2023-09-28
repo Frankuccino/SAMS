@@ -14,5 +14,5 @@ export const userSchema = z.object({
           message:'Password must include at least one lowercase letter, one uppercase letter, one number, and one special character',
         }
       ),
-    role: z.enum(['admin', 'staff', 'user']),
+    role: z.enum(['admin', 'manager', 'staff', 'user']),
   });

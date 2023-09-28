@@ -6,6 +6,7 @@ import { Label } from '@radix-ui/react-label';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
+import Alert from '@/components/Alert';
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useState } from 'react';
@@ -14,13 +15,15 @@ import { userSchema } from '@/schemas';
 import axios from 'axios';
 import { z } from "zod";
 import { useRouter } from 'next/navigation';
+
 import { DevTool } from '@hookform/devtools';
 
 type RegisterFormData = z.infer<typeof userSchema>;
 
 const RegisterCard: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+
   const router = useRouter();
 
   const {
@@ -37,33 +40,37 @@ const RegisterCard: React.FC = () => {
     // console.log(data); // You can submit the data to your API or perform other actions here
     setIsLoading(true);
     try {
-      const res = await axios.post("/api/auth/users", data, {
+      const res = await axios.post("/api/auth/register", data, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-
       if (res.status === 200) {
       console.log('Registration Successfull', res.data);
       reset()
-
       router.push('/')
       } else {
       console.log('Registration failed', res.data);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log('An error occured', error);
+      setError(error.response.data.error)
     } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 3000)
     }
   };
 
-  
   const content = (
     <Card className='w-[600px] p-5'>
       <CardTitle className='text-center'>Register</CardTitle>
       <form onSubmit={handleSubmit(onSubmit)}>
-
+        {error ? (
+              <div>
+                  <Alert value={error}/>
+              </div>
+          ): null}
         <div className='mt-5 grid grid-cols-2 gap-4'>
           <div>
             <Label htmlFor='email'>Email</Label>
@@ -144,6 +151,7 @@ const RegisterCard: React.FC = () => {
                 <SelectContent>
                   <SelectItem value='user'>User</SelectItem>
                   <SelectItem value='staff'>Staff</SelectItem>
+                  <SelectItem value='manager'>Manager</SelectItem>
                   <SelectItem value='admin'>Admin</SelectItem>
                 </SelectContent>
               </Select>
@@ -154,6 +162,7 @@ const RegisterCard: React.FC = () => {
   
         <Button
           type='submit'
+          disabled={isLoading}
           className={`mt-5 w-full bg-yellow-300 ${isLoading ? 'bg-yellow-600' : ''}`}
         >
           {isLoading ? <Loader2 className='animate-spin' /> : 'Submit'}
