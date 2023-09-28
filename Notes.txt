@@ -1,0 +1,19 @@
+ {data?.user?.role === 'admin' && (
+     <Link href='/register'>
+       <Button className={buttonVariants({ variant: 'secondary' })}>Register</Button>
+     </Link>
+   )}
+
+To conditionally render the register user by getting the role from the useSession
+
+hmmm so basically we won't be getting the username or it's name from the session token as it's not dynamically being updated and it's rellying on the date set on the token or session so we need to make use of the token ID and fetch it's data in the database to get the username, firstName, and lastName so we can pass in those data as props and render the data in the client side.
+
+I just learned something new to avoid hydration errors is to take note of avoiding nesting elements irrelevantly or improperly as the recent example of code made above the following is made as a change than nesting a custom button inside link
+            <>
+              <Link 
+              href='/login'
+              className={buttonVariants({ variant: "default" })}
+              > 
+              Sign In
+              </Link>
+            </>

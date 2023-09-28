@@ -8,7 +8,7 @@ interface UserDocument extends Document {
     firstName: string;
     lastName: string;
     password: string;
-    role: "admin" | "staff" | "user";
+    role: "admin" | "manager" | "staff" | "user";
     request: Types.ObjectId;
 }
 
@@ -74,7 +74,7 @@ userSchema.methods.comparePassword = async function (password) {
     } catch (error) {
         throw error;
     }
-}
+}   
 
 const User = models.User || model("User", userSchema);
 

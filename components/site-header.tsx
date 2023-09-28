@@ -1,4 +1,5 @@
 "use client"
+
 import Link from "next/link"
 
 import { signOut, useSession } from "next-auth/react"
@@ -14,7 +15,7 @@ export function SiteHeader() {
   const isAuth = status === 'authenticated' 
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b  ">
+    <header className="z-2 sticky top-0 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
@@ -28,8 +29,11 @@ export function SiteHeader() {
             </div>
             ) : (
             <>
-              <Link href='/login'>
-                <Button>Sign In</Button>
+              <Link 
+              href='/login'
+              className={buttonVariants({ variant: "default" })}
+              > 
+              Sign In
               </Link>
             </>
           )}

@@ -8,6 +8,9 @@ import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import AuthProvider from "@/components/AuthProvider"
+import Sidebar, { SidebarItem } from "@/components/Sidebar"
+import { Laptop, User } from "lucide-react"
+
 
 export const metadata: Metadata = {
   title: {
@@ -21,8 +24,8 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: "https://www.spud.edu.ph/assets/logo/spud_logo.png",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    // shortcut: "/favicon-16x16.png",
+    // apple: "/apple-touch-icon.png",
   },
 }
 
@@ -44,7 +47,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <div className="relative flex min-h-screen flex-col">
 
               {/* <SiteHeader /> */}
-
+              <Sidebar>
+                <SidebarItem icon={<Laptop/>} text="Dashboard"  active={true} link='/'/>
+                <SidebarItem icon={<User/>} text="Profile" link='/profile'/>
+                <SidebarItem icon={<Laptop/>} text="Contact" />
+              </Sidebar>
 
               <div className="flex-1 ">
                 {children}

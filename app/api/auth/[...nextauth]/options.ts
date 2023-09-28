@@ -19,10 +19,10 @@ export const options: NextAuthOptions = {
                 await connectDB();
 
                 const user = await User.findOne({ email });
-                if (!user) throw Error ("email or password mismatch!");
+                if (!user) throw Error ("Incorrect email or password");
 
                 const passwordMatch = await user.comparePassword(password);
-                if (!passwordMatch) throw Error("email or password mismatch!");
+                if (!passwordMatch) throw Error("Incorrect email or password");
 
                 return {
                     email: user.email,

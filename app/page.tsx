@@ -6,9 +6,11 @@ import { SiteHeader } from "@/components/site-header"
 
 export default function IndexPage() {
   return (
-    <section className="">
+    <section className="flex min-h-screen items-center justify-center">
       {/* <SiteHeader /> */}
+      
     <div>This is the home page</div>
+    
     </section>
   )
 }
