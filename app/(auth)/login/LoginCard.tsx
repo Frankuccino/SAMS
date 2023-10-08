@@ -17,11 +17,9 @@ type LoginFormValues = {
 };
 
 export default function LoginCard() {
-    const [error, setError] = useState("")
-
     const router = useRouter();
-    
-    const { register, handleSubmit } = useForm<LoginFormValues>();
+    const [error, setError] = useState("")
+    const { register, handleSubmit, reset } = useForm<LoginFormValues>();
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
@@ -31,9 +29,9 @@ export default function LoginCard() {
         redirect: false, // Prevent automatic redirection
       });
       if(res?.error) return setError(res.error);
-      router.replace('/profile');
-
-      router.push('/profile'); // Redirect manually if login is successful
+      router.replace('/');
+      reset()
+      router.push('/'); // Redirect manually if login is successful
     } catch (error) {
       console.error('Error:', error);
     }

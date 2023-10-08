@@ -4,8 +4,8 @@ import LoginCard from './LoginCard'
 export default function page() {
 
   return (
-    <div>
+    <main>
       <LoginCard />
-    </div>
+    </main>
   )
 }

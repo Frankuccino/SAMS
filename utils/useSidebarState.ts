@@ -8,15 +8,14 @@ type SidebarState = {
 };
 
 export function useSidebarState(): SidebarState {
-  const [expanded, setExpanded] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-    const storedState = localStorage.getItem(SIDEBAR_STATE_KEY);
-    return storedState ? JSON.parse(storedState) : true;
-  }
-  });
+  
+  const storedState = window?.localStorage?.getItem(SIDEBAR_STATE_KEY);
+  const initialExpanded = storedState ? JSON.parse(storedState) : true;
+
+  const [expanded, setExpanded] = useState<boolean>(initialExpanded);
 
   useEffect(() => {
-    localStorage.setItem(SIDEBAR_STATE_KEY, JSON.stringify(expanded));
+    window?.localStorage?.setItem(SIDEBAR_STATE_KEY, JSON.stringify(expanded));
   }, [expanded]);
 
   return { expanded, setExpanded }; 

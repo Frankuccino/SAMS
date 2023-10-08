@@ -58,6 +58,12 @@ export const options: NextAuthOptions = {
                 // console.log('Session User:', session.user);
             }
             return session
-        },
+        }, 
+    }, pages: {
+        // This pages is where the route of your application that does the actions: HOVER on pages to see the properties
+        signIn: "/login",
+        // signOut: "",
+        // error: "", 
+        // verifyRequest: ""
     }
 }

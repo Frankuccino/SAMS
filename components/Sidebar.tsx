@@ -2,26 +2,30 @@
 /* eslint-disable @next/next/no-img-element */
 import { useContext, createContext, useState, useEffect } from "react";
 import { ChevronsLeft, ChevronsRight, MoreVertical } from "lucide-react";
-import Link from "next/link";
 import { useSidebarState } from "../utils/useSidebarState";
+import Link from "next/link";
 
 type SidebarContextType = {
   isOpen: boolean;
   toggleSidebar?: () => void;
 };
 
+
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
-export default function Sidebar({ children }: any) {
-  const { expanded, setExpanded } = useSidebarState();
+export default function Sidebar({ children }: { children: React.ReactNode }) {
+  
+  // const { expanded, setExpanded } = useSidebarState();
+  const [expanded, setExpanded] = useState(false)
 
+  
   const toggleSidebar = () => {
     setExpanded((current) => !current);
   };
 
   return (
-    <aside className="absolute left-0 top-0 z-[5] h-full rounded-r-3xl bg-primary">
-      <nav className="flex h-full flex-col ">
+    <aside className="relative left-0 top-0 z-[5] h-full rounded-r-3xl bg-primary">
+      <nav className="flex h-full flex-col">
       <div className={`relative flex justify-end p-3 ${expanded ? 'items-center' : ''}`}>
         {expanded && (
           <img
@@ -32,7 +36,7 @@ export default function Sidebar({ children }: any) {
         )}
         <button
           onClick={toggleSidebar}
-          className="m-1 rounded-xl bg-gray-50 p-2 text-black hover:bg-gray-100"
+          className="m-1 rounded-xl bg-yellow-200 p-2 text-black hover:bg-yellow-300"
         >
           {expanded ? <ChevronsLeft /> : <ChevronsRight />}
         </button>
@@ -43,8 +47,7 @@ export default function Sidebar({ children }: any) {
           <ul className="mt-10 flex-1 px-3">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="flex border-t p-3">
-          {/* Below is the img source for the avatar of user */}
+        {/* <div className="flex border-t p-3">
           <img
             src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
             alt=""
@@ -62,7 +65,7 @@ export default function Sidebar({ children }: any) {
             </div>
             <MoreVertical size={20} className='text-black'/>
           </div>
-        </div>
+        </div> */}
       </nav>
     </aside>
   );
@@ -80,8 +83,8 @@ export function SidebarItem({ icon, text, active, alert, link }: any) {
         font-medium transition-colors
         ${
           active
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "text-gray-600 hover:bg-indigo-50"
+            ? "bg-gradient-to-tr from-green-600 to-green-500 text-gray-50"
+            : "text-gray-700 hover:bg-green-200"
         }
       `}
     >
@@ -89,7 +92,7 @@ export function SidebarItem({ icon, text, active, alert, link }: any) {
 
       <span
         className={`overflow-hidden transition-all ${
-          isOpen ? "ml-3 w-52" : "w-0"
+          isOpen ? "ml-6 w-52" : "w-0"
         }`}
       >
         {text} 
@@ -97,7 +100,7 @@ export function SidebarItem({ icon, text, active, alert, link }: any) {
 
       {alert && (
         <div
-          className={`absolute right-2 h-2 w-2 rounded bg-indigo-400 ${
+          className={`absolute right-2 h-2 w-2 rounded bg-red-400 ${
             isOpen ? "" : "top-2"
           }`}
         />
@@ -106,11 +109,12 @@ export function SidebarItem({ icon, text, active, alert, link }: any) {
       {!isOpen && (
         <div
           className={`
-            invisible absolute left-full ml-6 -translate-x-3 rounded-md
-            bg-indigo-100 px-2 py-1
-            text-sm text-indigo-800 opacity-20 transition-all
+            invisible absolute left-full ml-6 -translate-x-10 rounded-md
+            bg-green-100 px-2 py-1
+            text-sm text-green-800 opacity-20 transition-all
             group-hover:visible group-hover:translate-x-0 group-hover:opacity-100
-          `}
+          `
+        }
         >
           {text}
         </div>

@@ -1,29 +1,12 @@
 import connectDB from "@/lib/db";
 import User from "@/models/user";
+import { UserRequest, UserResponse } from "@/types/user";
 import { NextResponse } from "next/server";
 
-interface NewUserRequest {
-    email: string;
-    username: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    role: string;
-}
-
-interface NewUserResponse {
-    id: string;
-    email: string; 
-    username: string;
-    fistName: string;
-    lastName: string;
-    role: string;
-}
-
-type NewResponse = NextResponse<{ user?: NewUserResponse ; error?: string}>;
+type NewResponse = NextResponse<{ user?: UserResponse ; error?: string}>;
 
 export const POST = async (req: Request): Promise<NewResponse> => {
-    const body = (await req.json()) as NewUserRequest;
+    const body = (await req.json()) as UserRequest;
 
     await connectDB();
     
@@ -45,10 +28,10 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     
     return NextResponse.json({
         user: {
-            id: user._id.email,
+            _id: user._id.email,
             email: user.email,
             username: user.username,
-            fistName: user.firstName,
+            firstName: user.firstName,
             lastName: user.lastName,
             role: user.role
         },

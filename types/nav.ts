@@ -5,7 +5,6 @@ export interface NavItem {
   external?: boolean
 }
 
-
 export interface UserSessionData {
   role?: string | null | undefined;
   email?: string | null | undefined;

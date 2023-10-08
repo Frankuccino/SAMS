@@ -8,8 +8,12 @@ import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import AuthProvider from "@/components/AuthProvider"
-import Sidebar, { SidebarItem } from "@/components/Sidebar"
 import { Laptop, User } from "lucide-react"
+import Sidebar, { SidebarItem } from "@/components/Sidebar"
+
+import dynamic from "next/dynamic"
+import { usePathname } from "next/navigation"
+import SidebarComponent from "@/components/SidebarComponent"
 
 
 export const metadata: Metadata = {
@@ -33,32 +37,26 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
+// const Sidebar = dynamic(() => import('@/components/Sidebar'), { ssr: true})
+
 export default function RootLayout({ children }: RootLayoutProps) {
+
   return (
     <AuthProvider>
       <html lang="en" suppressHydrationWarning>
         {/* <head /> */}
-        <body
-          className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}
-        >
+        <body className={cn("h-full min-h-screen overflow-hidden bg-background font-sans antialiased", fontSans.variable)}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 
+          <div className="flex h-screen">
+            
+          <SidebarComponent />
 
-            <div className="relative flex min-h-screen flex-col">
-
-              {/* <SiteHeader /> */}
-              <Sidebar>
-                <SidebarItem icon={<Laptop/>} text="Dashboard"  active={true} link='/'/>
-                <SidebarItem icon={<User/>} text="Profile" link='/profile'/>
-                <SidebarItem icon={<Laptop/>} text="Contact" />
-              </Sidebar>
-
-              <div className="flex-1 ">
-                {children}
+                <div className="container flex-col">
+                  <SiteHeader />
+                  {children}
                 </div>
-
-            </div>
-
+          </div>
 
           </ThemeProvider>
         </body>

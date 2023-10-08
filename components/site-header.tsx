@@ -13,11 +13,13 @@ import { UserSessionData } from "@/types/nav"
 export function SiteHeader() {
   const { data, status } = useSession() as { data: { user: UserSessionData }; status: string }
   const isAuth = status === 'authenticated' 
-
+ 
   return (
     <header className="z-2 sticky top-0 w-full border-b">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
+        
         <MainNav items={siteConfig.mainNav} />
+
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
           {isAuth ? (
@@ -44,3 +46,4 @@ export function SiteHeader() {
     </header>
   )
 }
+// change the button to a responsible function that will sign out the user and also pushes the user to / route so he won't stay on the same page 
