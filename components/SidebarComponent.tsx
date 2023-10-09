@@ -4,16 +4,21 @@ import Sidebar, { SidebarItem } from './Sidebar'
 import { CalendarDays, Laptop, Users } from 'lucide-react'
 import { FolderOpen } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { UserSessionData } from '@/types/nav'
 
 // work on this tomorrow to just conditionally render the sidebar in the layout once user is signed in.
 
 export default function SidebarComponent() {
 // also try here to conditionally render the page of the sidebar if there is an authenticated user if not don't render it yet.
-
+const { data, status } = useSession() as { data: { user: UserSessionData }; status: string }
+const isAuth = status === 'authenticated' 
+const userRole = data?.user?.role;
 const url = usePathname()
 
   return (
     <div>
+      {isAuth && userRole && ( 
         <Sidebar>
             <SidebarItem 
             icon={<Laptop />} 
@@ -41,6 +46,7 @@ const url = usePathname()
             alert={true} 
             />
         </Sidebar>
+      )}
     </div>
 
     // What i'll do tomorrow is do the crud functionality starting with the users page so that I would be able to make use of it and secondly do the job order request CRUD functionality along side with the API authorization with the 3 user's or account I'll be creating.

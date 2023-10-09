@@ -83,8 +83,8 @@ export function SidebarItem({ icon, text, active, alert, link }: any) {
         font-medium transition-colors
         ${
           active
-            ? "bg-gradient-to-tr from-green-600 to-green-500 text-gray-50"
-            : "text-gray-700 hover:bg-green-200"
+            ? "bg-gradient-to-t from-green-700 to-green-800 text-gray-50"
+            : "text-gray-700 hover:bg-green-600"
         }
       `}
     >
